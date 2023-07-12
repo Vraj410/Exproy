@@ -7,8 +7,13 @@ import {PineconeClient} from "@pinecone-database/pinecone";
 import 'dotenv/config'        //or should it be dotenv.config after using import * as dotenv from "dotenv" 
 
 
+/* GET DOCUMENTS HERE */
+// const documents = ____ 
+
+
 // import other files
 import {pineconeInit} from "./pineconeInit.js"
+import { pineconeUpsert } from "./pineconeUpsert.js";
 
 // setup pinecone client
 const pinecone = new PineconeClient();
@@ -20,12 +25,12 @@ await pinecone.init({
 const pineconeIndex = "exproy";
 const vectorDimensions = 1536;
 
-
-// get user question function
+/* GET USER'S QUESTION HERE */
 
 // main function
 (async () => {
     await pineconeInit(pinecone,pineconeIndex,vectorDimensions);
+    await pineconeUpsert(pinecone,pineconeIndex,documents);
 
 })();
 
@@ -35,6 +40,7 @@ const vectorDimensions = 1536;
 import express from 'express';
 const app = express()
 import path from 'path'
+import { upsertPinecone } from "./pineconeUpsert.js";
 
 app.all('*',(req,res) => {
     res.status(404).send('<h1> Error 404, resource not found </h1>')
