@@ -40,7 +40,6 @@ const vectorDimensions = 1536;
 import express from 'express';
 const app = express()
 import path from 'path'
-import { upsertPinecone } from "./pineconeUpsert.js";
 
 app.all('*',(req,res) => {
     res.status(404).send('<h1> Error 404, resource not found </h1>')
